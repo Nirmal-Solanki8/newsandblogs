@@ -1,28 +1,199 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@300..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@300..700&family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
-*{
+:root {
+  --primary-color: #6877f4;
+  --primary-light: #8996fc;
+  --primary-glow: rgba(104, 119, 244, 0.35);
+  --secondary-color: #b88efc;
+  --accent-pink: #f43f5e;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-cyan: #06b6d4;
+
+  --bg-deep: #080b11;
+  --bg-app: #0e131d;
+  --bg-card: #141b29;
+  --bg-card-hover: #1a2336;
+  --bg-elevated: #1e293b;
+  --bg-glass: rgba(18, 24, 38, 0.85);
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(104, 119, 244, 0.3);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #8292ab;
+
+  --radius-sm: 0.6rem;
+  --radius-md: 1.2rem;
+  --radius-lg: 1.8rem;
+  --radius-xl: 2.4rem;
+
+  --shadow-sm: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 1.6rem 4.8rem rgba(0, 0, 0, 0.65);
+  --shadow-glow: 0 0 3rem rgba(104, 119, 244, 0.2);
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   outline: none;
   text-decoration: none;
-  font-family: 'kanit', sans-serif;
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-html{
+
+html {
   font-size: 10px;
+  scroll-behavior: smooth;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
 }
-.container{
-  height: 100%;
+
+body {
+  min-height: 100vh;
   width: 100%;
-  background: linear-gradient(to right , #B88EFC,#6877f4);
-  display: grid;
-  place-items: center;
-  align-items: center;
+  overflow-x: hidden;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
 }
-.news-blog-app{
-  width: 95%;
-  height: 100%;
-  background-color: black;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
+
+/* Custom Smooth Scrollbar */
+::-webkit-scrollbar {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #090c13;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e283d;
+  border-radius: 1rem;
+  border: 2px solid #090c13;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* Main Container with Mesh Gradient Background */
+.container {
+  min-height: 100vh;
+  width: 100%;
+  background: 
+    radial-gradient(circle at 10% 15%, rgba(184, 142, 252, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 90% 85%, rgba(104, 119, 244, 0.22) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(14, 19, 29, 0.8) 0%, transparent 100%),
+    linear-gradient(135deg, #090c13 0%, #0d121c 50%, #080a10 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Ambient glow accent in background */
+.container::before {
+  content: '';
+  position: fixed;
+  top: -15rem;
+  right: -15rem;
+  width: 50rem;
+  height: 50rem;
+  background: radial-gradient(circle, rgba(104, 119, 244, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container::after {
+  content: '';
+  position: fixed;
+  bottom: -15rem;
+  left: -15rem;
+  width: 50rem;
+  height: 50rem;
+  background: radial-gradient(circle, rgba(184, 142, 252, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* The Core App Shell */
+.news-blog-app {
+  width: 100%;
+  max-width: 162rem;
+  min-height: 90vh;
+  background-color: var(--bg-app);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow var(--transition-normal);
+}
+
+/* Responsive Container Adjustments */
+@media (max-width: 1200px) {
+  .container {
+    padding: 1.5rem;
+  }
+  .news-blog-app {
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0;
+    align-items: stretch;
+  }
+  .news-blog-app {
+    border-radius: 0;
+    border: none;
+    min-height: 100vh;
+  }
+}
+
+/* Common Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.8rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
